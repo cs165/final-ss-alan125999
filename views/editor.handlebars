@@ -1,17 +1,17 @@
 <article class='screen' id='editor-screen'>
-  <article class='paper'>
-    <h1>{{date}}</h1>
+  <article class='paper' id='editor'>
+    <h1 id='date'></h1>
     <hr />
-    <p>{{prompt}}</p>
-    <div class='content-viewer'>{{content}}</div>
-    <teatarea class='content-editor'></teatarea>
+    <p id='prompt'></p>
+    <div class='content-viewer'></div>
+    <textarea class='content-editor hidden'></textarea>
   </article>
   <div class='date-switcher'>
     <div id='date-back'>
       <img src='/img/back.png' />
     </div>
     <div id='date-today'>HOME</div>
-    <div class='hidden'>
+    <div class='hidden' id='save'>
       <img src='/img/checked.png'/>
     </div>
     <div id='date-next'>

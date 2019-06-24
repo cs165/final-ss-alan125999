@@ -17,6 +17,11 @@ body {
   text-align: center;
 }
 
+#main-screen {
+  animation: fade-in;
+  animation-duration: 1.5s;
+}
+
 #main-screen h1 {
   font-size: 3rem;
   margin: 0;
@@ -30,6 +35,13 @@ body {
   font-size: x-large;
   background-color: mistyrose;
   margin: 40px 0 20px 0;
+  transition-duration: 0.8s;
+}
+
+#main-screen button:hover {
+  background-color: rgb(252, 208, 204);
+  transition-duration: 0.8s;
+  cursor: pointer;
 }
 
 .paper {
@@ -63,6 +75,8 @@ button {
   flex-grow: 1;
   margin: 50px 0;
   width: 80vw;
+  display: flex;
+  flex-direction: column;
 }
 
 #editor-screen .date-switcher {
@@ -71,6 +85,26 @@ button {
   background-color: #FFF;
   margin: 0;
   padding: 10px;
+}
+
+#editor-screen .content-viewer {
+  white-space: pre-line;
+  flex-grow: 1;
+  text-align: left;
+  margin: 20px;
+  height: 0px;
+  overflow: auto;
+  word-break: break-word;
+}
+
+#editor-screen .content-editor {
+  flex-grow: 1;
+  font-family: 'Mali', cursive;
+  font-size: medium;
+  margin: 20px;
+  border: none;
+  box-shadow: 0 0 10px whitesmoke, 1px 1px 10px whitesmoke;
+  resize: none;
 }
 
 #editor-screen .date-switcher>div {
@@ -88,4 +122,32 @@ button {
 
 #editor-screen .date-switcher>div.hidden {
   display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const googleSheets = require('gsa-sheets');
 const path = require('path');
 const exphbr = require('express-handlebars');
-const { genId, validateId, genPrompt } = require('./src/helper');
+const { genId, validateId, genPrompt, updateDiary, findDiary, storeDiary } = require('./src/helper');
 // TODO(you): Update the contents of privateSettings accordingly, as you did
 // in HW5, then uncomment this line.
 const key = require('./privateSettings.json');
@@ -31,22 +31,61 @@ app.get('/', onGetStart);
 // TODO(you): Add at least 1 GET route and 1 POST route.
 async function onGetEditor(req, res) {
   const { id } = req.params;
-  if(!validateId(id)) res.redirect(genId());
+  const dateOpt = {
+    month: 'long',
+    day: 'numeric'
+  };
+  if (!validateId(id)) res.redirect(genId());
   else {
     const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
-    res.render('editor', {
-      title: 'Diary Editor' + id,
+    const options = {
+      title: 'Diary Editor',
       date: today,
-      prompt: genPrompt(),
-    });
+    }
+
+    const ret = await findDiary(sheet, id, today);
+    if (ret) {
+      res.render('editor', {
+        ...options,
+        prompt: ret.diary.prompt,
+        content: ret.diary.content,
+      });
+    }
+    else {
+      res.render('editor', {
+        ...options,
+        prompt: genPrompt(),
+        content: '',
+      });
+    }
   }
 }
 app.get('/id/:id', onGetEditor);
 
 async function onGetNewId(req, res) {
-  res.redirect(genId());
+  res.redirect('/id/' + genId());
 }
 app.get('/id/', onGetNewId);
+
+async function onGetDiary(req, res) {
+  const { id, date } = req.params;
+  const ret = await findDiary(sheet, id, date);
+  if (ret) res.json(ret.diary);
+  else res.json({
+    prompt: genPrompt(),
+    content: '',
+  });
+}
+app.get('/api/diary/:id/:date', onGetDiary);
+
+async function onSaveDiary(req, res) {
+  const { id, date } = req.body;
+  const ret = await findDiary(sheet, id, date);
+
+  if (ret) await updateDiary(sheet, ret.index, req.body);
+  else await storeDiary(sheet, req.body);
+}
+app.post('/api/diary', jsonParser, onSaveDiary);
 
 // Please don't change this; this is needed to deploy on Heroku.
 const port = process.env.PORT || 3000;
