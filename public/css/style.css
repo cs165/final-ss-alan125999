@@ -1,3 +1,91 @@
 /**
  * TODO(you): Add the CSS necessary to complete your final project.
  **/
+
+body {
+  font-family: 'Mali', cursive;
+  background-color: lavenderblush;
+  margin: 0;
+  padding: 0;
+}
+
+.screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+#main-screen h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+#main-screen p {
+  font-size: small;
+}
+
+#main-screen button {
+  font-size: x-large;
+  background-color: mistyrose;
+  margin: 40px 0 20px 0;
+}
+
+.paper {
+  box-shadow: 0 0 1000px rgba(255, 255, 255), 0 1px 1000px rgb(255, 255, 255), 0 0 100px rgba(255, 255, 255), 0 0 10px rgba(255, 255, 255);
+  padding: 5% 8%;
+  max-width: 800px;
+  background-color: rgba(255, 255, 255, .9);
+  border-radius: 15px;
+}
+
+button {
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  background-color: mistyrose;
+  font-family: 'Mali', cursive;
+  border-color: #CCC;
+  box-shadow: 0 0 4px whitesmoke, 1px 1px 4px whitesmoke;
+}
+
+#editor-screen {
+  flex-direction: column;
+}
+
+#editor-screen h1 {
+  font-size: 4rem;
+  margin: -20px 0 20px 0;
+}
+
+#editor-screen .paper {
+  flex-grow: 1;
+  margin: 50px 0;
+  width: 80vw;
+}
+
+#editor-screen .date-switcher {
+  display: flex;
+  width: 100%;
+  background-color: #FFF;
+  margin: 0;
+  padding: 10px;
+}
+
+#editor-screen .date-switcher>div {
+  flex-grow: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+#editor-screen .date-switcher>div img {
+  height: 25px;
+}
+
+#editor-screen .date-switcher>div.hidden {
+  display: none;
+}
